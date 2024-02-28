@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookies</title>
+  </head>
+  <body>
+    // Начало
+    <div id="cookie_note">
+      <p>
+        Мы используем файлы cookies для улучшения работы сайта. Оставаясь на
+        нашем сайте, вы соглашаетесь с условиями использования cookies. Чтобы
+        ознакомиться с нашими Положениями о конфиденциальности,
+        <a class="cookie_link" href="/politika/" target="_blank"
+          >нажмите здесь</a
+        >.
+      </p>
+      <button class="cookie_accept">Я согласен</button>
+      <style>
+        :root {
+          --main-bg-color: rgb(255, 255, 255);
+          --button-bg-color: #186fe1;
+          --main-text-color: rgb(0, 0, 0);
+          --button-text-color: rgb(255, 255, 255);
+          --main-shadow-color: rgba(0, 0, 0, 0.4);
+          --font-size-main-text: 12px;
+          --font-size-button-text: 14px;
+        }
+        #cookie_note {
+          display: none;
+          position: fixed;
+          bottom: 0px;
+          left: 0px;
+          width: 100%;
+          padding: 15px;
+          background-color: var(--main-bg-color);
+          /* box-shadow: 2px 3px 10px var(--main-shadow-color); */
+          border: solid 1px rgb(153, 153, 153);
+          justify-content: space-between;
+        }
+        #cookie_note p {
+          margin: 0;
+          font-size: var(--font-size-main-text);
+          text-align: left;
+          color: var(--main-text-color);
+        }
+        .cookie_accept {
+          flex: 0 0 150px;
+          padding: 15px;
+          margin-left: 20px;
+          display: inline-block;
+          box-sizing: border-box;
+          outline: none;
+          border: none;
+          border-radius: 4px;
+          font-size: var(--font-size-button-text);
+          text-decoration: none;
+          color: var(--button-text-color);
+          background-color: var(--button-bg-color);
+          overflow: hidden;
+          vertical-align: top;
+          cursor: pointer;
+          user-select: none;
+          appearance: none;
+          touch-action: manipulation;
+          z-index: 999;
+        }
+        .cookie_accept:hover {
+          box-shadow: 0 1px 2px 0 rgb(26 115 232 / 45%),
+            0 1px 3px 1px rgb(26 115 232 / 30%);
+          background-color: #297be6;
+        }
+        .cookie_accept:active {
+          box-shadow: 0 1px 2px 0 rgb(26 115 232 / 45%),
+            0 2px 6px 2px rgb(26 115 232 / 30%);
+          background-color: #1a73e8 !important;
+        }
+        .cookie_accept:focus-visible {
+          box-shadow: 0 0 0 3px lightskyblue;
+        }
+        .cookie_accept:disabled {
+          pointer-events: none;
+          opacity: 0.65;
+        }
+        .cookie_link {
+          color: rgb(57, 57, 219);
+          text-decoration: none;
+        }
+        @media (min-width: 576px) {
+          #cookie_note.show {
+            display: flex;
+          }
+        }
+        @media (max-width: 575px) {
+          #cookie_note.show {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            align-items: center;
+            gap: 20px;
+          }
+
+          #cookie_note p {
+            width: 95%;
+          }
+
+          .cookie_accept {
+            flex: 0;
+            width: 50%;
+            padding: 20px;
+          }
+        }
+
+        @keyframes slideIn {
+          from {
+            transform: translateY(100%);
+          }
+          to {
+            transform: translateY(0);
+          }
+        }
+
+        #cookie_note.show {
+          z-index: 999;
+          display: flex;
+          align-items: center;
+          animation: slideIn 0.5s ease forwards;
+        }
+      </style>
+      <script>
+        function setCookie(name, value, hours) {
+          let expires = "";
+          if (hours) {
+            let date = new Date();
+            date.setTime(date.getTime() + hours * 60 * 60 * 1000);
+            expires = "; expires=" + date.toUTCString();
+          }
+          document.cookie = name + "=" + (value || "") + expires + ";";
+        }
+
+        function getCookie(name) {
+          let matches = document.cookie.match(
+            new RegExp(
+              "(?:^|; )" +
+                name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+                "=([^;]*)"
+            )
+          );
+          return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        function checkCookies() {
+          let cookieNote = document.getElementById("cookie_note");
+          let cookieBtnAccept = cookieNote.querySelector(".cookie_accept");
+
+          if (!getCookie("cookies_policy")) {
+            cookieNote.classList.add("show");
+          }
+
+          cookieBtnAccept.addEventListener("click", function () {
+            setCookie("cookies_policy", "true", 2);
+            cookieNote.classList.remove("show");
+          });
+        }
+
+        document.addEventListener(
+          "DOMContentLoaded",
+          setTimeout(() => {
+            checkCookies();
+          }, 5000)
+        );
+      </script>
+    </div>
+    // Конец
+  </body>
+</html>
