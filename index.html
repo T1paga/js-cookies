@@ -166,9 +166,11 @@
 
         document.addEventListener(
           "DOMContentLoaded",
-          setTimeout(() => {
-            checkCookies();
-          }, 5000)
+          (() => {
+            setTimeout(() => {
+              checkCookies();
+            }, 5000);
+          }).bind()
         );
       </script>
     </div>
